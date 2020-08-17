@@ -1,97 +1,62 @@
-// Assignment Code
 let generateBtn = document.querySelector("#generate");
 
-// Write password to the #password input
+let arrayChar = []
+
+let specialChars = ["!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "+", "=", "-", "_"]
+let numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]
+let lowerChars = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l",	"m", "n",	"o",	"p", "q",	"r",	"s",	"t",	"u",	"v",	"w",	"x",	"y",	"z"]
+let upperChars = ["A", "B", "C", "D", "E", "F", "G",	"H",	"I",	"J",	"K",	"L",	"M",	"N",	"O",	"P",	"Q",	"R",	"S",	"T",	"U",	"V",	"W",	"X",	"Y",	"Z"] 
+let userLengh;
+
+function promptUser() {
+  let pwLeng = Number(prompt("How many characters do you want in your password?"))
+  if (pwLeng >= 8 && pwLeng <= 128) {
+    userLengh=pwLeng
+  }
+  else{
+    alert("Please try again and select a character length between 8-128 characters.")
+    return;
+  }
+let specialConf = confirm("Would you like to include special characters in your password?")
+  if (specialConf === true) {
+    arrayChar.push(specialChars)
+  } 
+let numberConf = confirm("Would you like to include numbers in your password?")
+  if (numberConf === true) {
+    arrayChar.push(numbers)
+  }
+let lowerCaseConf = confirm("Would you like to include lower case in your password?")
+  if (lowerCaseConf === true) {
+    arrayChar.push(lowerChars)
+  }
+let upperCaseConf = confirm("Would you like to include upper case in your password?")
+  if (upperCaseConf === true) {
+    arrayChar.push(upperChars)
+  }
+  else{
+    alert("You can not have a stong password.")
+  }
+}
+
+function generatePassword() {
+  let result = ""
+  promptUser();
+  for (let i = 0; i < userLengh; i++) {
+   
+    let one = Math.floor((Math.random() * arrayChar.length -1) +1)
+    let two = Math.floor((Math.random() * arrayChar[one].length -1) +1)
+    result+=arrayChar[one][two]
+  }
+    
+  return result
+}
+
 function writePassword() {
-  function generatePassword(){
-
-    let pass={
-
-            special_characters:[" ","!","@","#","$","%","^","&","*","(",")","-","_","=","+","{","}","[","]","|","?","<",">",",",".","/","'",";",":","`","~"],
-            numbers:["1","2","3","4","5","6","7","8","9","0"],
-            lowerCaseLetter:["q","w","e","r","t","y","u","i","o","p","a","s","d","f","g","h","j","k","l","z","x","c","v","b","n","m"],
-            upperCaseLetter:["Q","W","E","R","T","Y","U","I","O","P","A","S","D","F","G","H","J","K","L","Z","X","C","V","B","N","M"],
-      }
-
-
-      let amir = confirm("would you like to have a strong pass?");
-      console.log(amir);
-
-      if(amir===false){
-        alert("you will hacked easly");
-      }
-
-      else{
-       let amir1 = confirm("would you like ur pass have special characters?");
-       console.log(amir1);
-
-       let aslan = parseInt(prompt("how many special characters would you like your pass to be?"));
-       console.log(aslan);
-           for(let i=0;i<aslan;i++){
-             let randomSpecialCharacters = pass.special_characters[Math.floor(Math.random() * pass.special_characters.length)];
-             console.log(randomSpecialCharacters);
-            
-           }
-
-        let amir2 = confirm("would you like ur pass have numbers?");
-        console.log(amir2);
-
-        if(amir2===true){
-        let arsalan = parseInt(prompt("how many numbers would you like your pass to have?"));
-        console.log(arsalan);
-            for(let i=0;i<arsalan;i++){
-              let randomNumbers = pass.numbers[Math.floor(Math.random() * pass.numbers.length)];
-              console.log(randomNumbers);
-            }
-          }
-
-
-
-          let amir3 = confirm("would you like ur pass have Lower Case Letter?");
-          console.log(amir3);
-
-          if(amir3===true){
-          let ardalan = parseInt(prompt("how many lower case letters would you like your pass to have?"));
-          console.log(ardalan);
-
-          for(let i=0;i<ardalan;i++){
-            let randomLowerCaseLetter = pass.lowerCaseLetter[Math.floor(Math.random() * pass.lowerCaseLetter.length)];
-            console.log(randomLowerCaseLetter);
-          }
-            }
-
-
-
-
-          let amir4 = confirm("would you like ur pass have uper Case Letter?");
-          console.log(amir4);
-
-          if(amir4===true){
-          let arastoo = parseInt(prompt("how many uper case letters would you like your pass to have?"));
-          console.log(arastoo);
-              for(let i=0;i<arastoo;i++){
-                let randomUpperCaseLetter = pass.upperCaseLetter[Math.floor(Math.random() * pass.upperCaseLetter.length)];
-                console.log(randomUpperCaseLetter);
-              }
-          }
-
-          return randomSpecialCharacters+randomNumbers+randomLowerCaseLetter+randomUpperCaseLetter;
-
-             }
-
- 
-        }
-
-
-  var password = generatePassword();
+  let password = generatePassword();
   let passwordText = document.querySelector("#password");
 
   passwordText.value = password;
 
-
-
 }
-
-
 
 generateBtn.addEventListener("click", writePassword);
